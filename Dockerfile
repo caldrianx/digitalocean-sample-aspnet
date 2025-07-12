@@ -11,7 +11,13 @@ RUN dotnet restore -a amd64
 COPY --link aspnetapp/. .
 RUN dotnet publish -a amd64 --no-restore -o /app
 
-# Install Envoy proxy
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
+EXPOSE 8080
+WORKDIR /app
+COPY --link --from=build /app .
+
+# Install Envoy proxy in the runtime image
 RUN apt-get update && \
     apt-get install -y curl gnupg2 lsb-release && \
     wget -O- https://apt.envoyproxy.io/signing.key | gpg --dearmor -o /etc/apt/keyrings/envoy-keyring.gpg && \
@@ -19,12 +25,6 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install envoy && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
-EXPOSE 8080
-WORKDIR /app
-COPY --link --from=build /app .
 
 # Copy envoy.yaml and entrypoint.sh into the runtime image
 COPY envoy.yaml /etc/envoy/envoy.yaml

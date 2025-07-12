@@ -20,17 +20,16 @@ RUN apt-get update && \
     apt-get install envoy && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy envoy.yaml
-COPY envoy.yaml /etc/envoy/envoy.yaml
-
-# Copy entrypoint script
-COPY --link entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 EXPOSE 8080
 WORKDIR /app
 COPY --link --from=build /app .
+
+# Copy envoy.yaml and entrypoint.sh into the runtime image
+COPY envoy.yaml /etc/envoy/envoy.yaml
+COPY --link entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 USER $APP_UID
 ENTRYPOINT ["/entrypoint.sh"]

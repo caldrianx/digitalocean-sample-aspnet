@@ -14,10 +14,10 @@ RUN dotnet publish -a amd64 --no-restore -o /app
 # Install Envoy proxy
 RUN apt-get update && \
     apt-get install -y curl gnupg2 lsb-release && \
-    curl -sL 'https://getenvoy.io/gpg' | apt-key add - && \
-    echo "deb [arch=amd64] https://dl.bintray.com/tetrate/getenvoy-deb $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/getenvoy.list && \
+    wget -O- https://apt.envoyproxy.io/signing.key | gpg --dearmor -o /etc/apt/keyrings/envoy-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/envoy-keyring.gpg] https://apt.envoyproxy.io bookworm main" | tee /etc/apt/sources.list.d/envoy.list && \
     apt-get update && \
-    apt-get install -y getenvoy-envoy && \
+    apt-get install envoy && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy envoy.yaml

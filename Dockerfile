@@ -11,11 +11,19 @@ RUN dotnet restore -a amd64
 COPY --link aspnetapp/. .
 RUN dotnet publish -a amd64 --no-restore -o /app
 
-
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 EXPOSE 8080
 WORKDIR /app
 COPY --link --from=build /app .
 USER $APP_UID
-ENTRYPOINT ["./aspnetapp"]
+
+# Install Envoy
+RUN apt-get update && apt-get install -y curl && \
+    curl -sL 'https://getenvoy.io/cli | bash -s -- -b /usr/local/bin' && \
+    apt-get install -y envoy
+
+# Copy Envoy config
+COPY envoy.yaml /etc/envoy/envoy.yaml
+
+ENTRYPOINT ["sh", "-c", "envoy -c /etc/envoy/envoy.yaml; ./aspnetapp"]

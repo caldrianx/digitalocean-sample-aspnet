@@ -5,4 +5,4 @@ set -e
 envoy -c /etc/envoy/envoy.yaml &
 
 # Start the ASP.NET Core app
-exec ./aspnetapp 
+exec ./aspnetapp

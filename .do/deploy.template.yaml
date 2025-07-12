@@ -1,9 +1,0 @@
-spec:
-  name: digitalocean-sample-aspnet
-  services:
-  - dockerfile_path: Dockerfile
-    git:
-      branch: main
-      repo_clone_url: https://github.com/caldrianx/digitalocean-sample-aspnet.git
-    name: digitalocean-sample-aspnet
-    protocol: HTTP2

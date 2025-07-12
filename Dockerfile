@@ -24,6 +24,7 @@ RUN apt-get update && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/envoy-keyring.gpg] https://apt.envoyproxy.io bookworm main" | tee /etc/apt/sources.list.d/envoy.list && \
     apt-get update && \
     apt-get install envoy && \
+    apt-get purge -y --auto-remove curl gnupg2 lsb-release && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy envoy.yaml and entrypoint.sh into the runtime image

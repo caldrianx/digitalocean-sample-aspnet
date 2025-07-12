@@ -11,7 +11,7 @@ static_resources:
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
                 stat_prefix: ingress_http
-                codec_type: AUTO
+                codec_type: HTTP2
                 route_config:
                   name: local_route
                   virtual_hosts:
@@ -24,12 +24,11 @@ static_resources:
                             cluster: grpc_service
                             max_grpc_timeout: 0s
                 http_filters:
-                  - name: envoy.filters.http.grpc_web
                   - name: envoy.filters.http.router
   clusters:
     - name: grpc_service
       connect_timeout: 0.25s
-      type: logical_dns
+      type: static
       http2_protocol_options: {}
       lb_policy: round_robin
       load_assignment:

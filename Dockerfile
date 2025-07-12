@@ -17,13 +17,4 @@ EXPOSE 8080
 WORKDIR /app
 COPY --link --from=build /app .
 USER $APP_UID
-
-# Install Envoy
-RUN apt-get update && apt-get install -y curl && \
-    curl -sL 'https://getenvoy.io/cli | bash -s -- -b /usr/local/bin' && \
-    apt-get install -y envoy
-
-# Copy Envoy config
-COPY envoy.yaml /etc/envoy/envoy.yaml
-
-ENTRYPOINT ["sh", "-c", "envoy -c /etc/envoy/envoy.yaml; ./aspnetapp"]
+ENTRYPOINT ["./aspnetapp"]

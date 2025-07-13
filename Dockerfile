@@ -15,7 +15,7 @@ COPY envoy.yaml /etc/envoy/envoy.yaml
 COPY --link entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-USER $APP_UID
+#USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 

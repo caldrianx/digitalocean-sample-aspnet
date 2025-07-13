@@ -1,25 +1,33 @@
-name: mugmiles
+name: mugmiles-grpc
 services:
 - name: mugmiles
-  image:
-    registry_type: DOCKER_HUB
-    registry: your-registry
-    repository: mugmiles
-    tag: latest
+  build_command: docker build -t mugmiles .
+  dockerfile_path: Dockerfile
+  source_dir: /
+  github:
+    repo: your-username/your-repo-name
+    branch: main
+    deploy_on_push: true
   instance_count: 1
   instance_size_slug: basic-xxs
   http_port: 8080
   health_check:
     http_path: /health
-    initial_delay_seconds: 10
+    initial_delay_seconds: 30
     period_seconds: 30
     timeout_seconds: 10
     failure_threshold: 3
-    success_threshold: 2
-  env:
+    success_threshold: 1
+  routes:
+  - path: /
+  envs:
   - key: ASPNETCORE_ENVIRONMENT
     value: Production
   - key: ASPNETCORE_HTTP_PORTS
     value: "5000"
   - key: ASPNETCORE_URLS
     value: "http://+:5000"
+  - key: DOTNET_RUNNING_IN_CONTAINER
+    value: "true"
+  - key: DOTNET_USE_POLLING_FILE_WATCHER
+    value: "true" 

@@ -3,5 +3,5 @@
     image: mugmiles
     build:
       context: .
-      dockerfile: MugMiles/Dockerfile
+      dockerfile: Dockerfile
 

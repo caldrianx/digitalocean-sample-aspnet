@@ -11,4 +11,4 @@ services:
       value: "5000"
       scope: RUN_TIME
       type: general
-  # protocol: HTTP2
+  protocol: HTTP2

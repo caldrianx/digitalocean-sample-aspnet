@@ -5,4 +5,4 @@ set -e
 envoy -c /etc/envoy/envoy.yaml &
 
 # Start the ASP.NET Core app
-exec dotnet MugMiles.dll
+ASPNETCORE_HTTP_PORTS=5000 exec dotnet MugMiles.dll

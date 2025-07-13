@@ -2,7 +2,6 @@
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -18,6 +17,12 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./MugMiles.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+
+# Copy envoy.yaml and entrypoint.sh into the runtime image
+COPY envoy.yaml /etc/envoy/envoy.yaml
+COPY --link entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MugMiles.dll"]
+ENTRYPOINT ["entrypoint.sh"]

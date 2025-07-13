@@ -6,9 +6,9 @@ services:
     deploy_on_push: true
     repo: caldrianx/digitalocean-sample-aspnet
   name: digitalocean-sample-aspnet
-  envs:
-    - key: ASPNETCORE_HTTP_PORTS
-      value: "5000"
-      scope: RUN_TIME
-      type: general
   protocol: HTTP2
+  # envs:
+  #   - key: ASPNETCORE_HTTP_PORTS
+  #     value: "5000"
+  #     scope: RUN_TIME
+  #     type: general

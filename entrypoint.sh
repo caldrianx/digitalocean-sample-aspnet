@@ -58,11 +58,11 @@ dotnet MugMiles.dll &
 DOTNET_PID=$!
 
 # Wait for ASP.NET Core to be ready
-if ! check_service 5000 "ASP.NET Core"; then
-    echo "✗ ASP.NET Core failed to start"
-    cleanup
-    exit 1
-fi
+# if ! check_service 5000 "ASP.NET Core"; then
+#     echo "✗ ASP.NET Core failed to start"
+#     cleanup
+#     exit 1
+# fi
 
 # Start Envoy proxy
 echo "Starting Envoy proxy..."

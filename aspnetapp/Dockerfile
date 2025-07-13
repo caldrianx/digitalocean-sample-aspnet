@@ -4,11 +4,11 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /source
 
 # Copy project file and restore as distinct layers
-COPY --link aspnetapp/*.csproj .
+COPY --link *.csproj .
 RUN dotnet restore -a amd64
 
 # Copy source code and publish app
-COPY --link aspnetapp/. .
+COPY --link . .
 RUN dotnet publish -a amd64 --no-restore -o /app
 
 

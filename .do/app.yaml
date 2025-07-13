@@ -1,13 +1,8 @@
-name: digitalocean-sample-aspnet
+name: sample-aspnetapp
 services:
 - dockerfile_path: /Dockerfile
-  envs:
-  - key: ASPNETCORE_HTTP_PORTS
-    scope: RUN_AND_BUILD_TIME
-    value: "5000"
   github:
     branch: main
     deploy_on_push: true
-    repo: caldrianx/digitalocean-sample-aspnet
-  name: digitalocean-sample-aspnet
-  protocol: HTTP2
+    repo: digitalocean/sample-aspnet
+  name: sample-aspnet

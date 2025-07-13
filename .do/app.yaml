@@ -10,3 +10,5 @@ services:
   envs:
     - key: ASPNETCORE_HTTP_PORTS
       value: "5000"
+      scope: RUN_TIME
+      type: general

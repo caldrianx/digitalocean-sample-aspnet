@@ -1,0 +1,7 @@
+﻿services:
+  mugmiles:
+    image: mugmiles
+    build:
+      context: .
+      dockerfile: MugMiles/Dockerfile
+

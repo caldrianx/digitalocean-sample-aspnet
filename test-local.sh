@@ -8,18 +8,18 @@ echo
 
 # Clean up any existing containers
 echo "Cleaning up existing containers..."
-docker-compose down -v 2>/dev/null || true
+docker compose down -v 2>/dev/null || true
 
 # Build the image
 echo "Building Docker image..."
-docker-compose build
+docker compose build
 
 # Start the service
 echo "Starting services..."
-docker-compose up -d
+docker compose up -d
 
 # Get container ID
-CONTAINER_ID=$(docker-compose ps -q mugmiles)
+CONTAINER_ID=$(docker compose ps -q mugmiles)
 if [ -z "$CONTAINER_ID" ]; then
     echo "✗ Container failed to start"
     exit 1
@@ -34,15 +34,15 @@ sleep 10
 
 # Check container status
 echo "=== Container Status ==="
-docker-compose ps
+docker compose ps
 
 # Check container logs
 echo "=== Container Logs (last 20 lines) ==="
-docker-compose logs --tail=20 mugmiles
+docker compose logs --tail=20 mugmiles
 
 # Run debug script inside container
 echo "=== Running Debug Script ==="
-docker-compose exec mugmiles bash -c "$(cat debug-container.sh)"
+docker compose exec mugmiles bash -c "$(cat debug-container.sh)"
 
 # Test endpoints
 echo "=== Testing Endpoints ==="
@@ -75,4 +75,4 @@ echo "If tests fail, check the container logs above for issues."
 
 # Cleanup
 echo "Cleaning up..."
-docker-compose down 
+docker compose down 

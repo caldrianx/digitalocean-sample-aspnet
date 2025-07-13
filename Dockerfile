@@ -1,4 +1,10 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+
+# Copy envoy.yaml and entrypoint.sh into the runtime image
+COPY envoy.yaml /etc/envoy/envoy.yaml
+COPY --link entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
@@ -18,11 +24,6 @@ RUN dotnet publish "./MugMiles.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 
 FROM base AS final
 
-# Copy envoy.yaml and entrypoint.sh into the runtime image
-COPY envoy.yaml /etc/envoy/envoy.yaml
-COPY --link entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]

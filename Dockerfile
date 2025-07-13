@@ -20,9 +20,9 @@ FROM base AS final
 
 # Copy envoy.yaml and entrypoint.sh into the runtime image
 COPY envoy.yaml /etc/envoy/envoy.yaml
-COPY --link entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+COPY --link entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

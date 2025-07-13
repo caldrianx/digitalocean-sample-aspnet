@@ -1,6 +1,6 @@
 name: digitalocean-sample-aspnet
 services:
-- dockerfile_path: /aspnetapp/Dockerfile
+- dockerfile_path: ./aspnetapp/Dockerfile
   github:
     branch: tmp
     deploy_on_push: true

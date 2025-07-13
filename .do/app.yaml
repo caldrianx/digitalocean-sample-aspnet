@@ -1,14 +1,14 @@
 name: digitalocean-sample-aspnet
 services:
-- dockerfile_path: /MugMiles/Dockerfile
+- dockerfile_path: Dockerfile
   github:
     branch: gRPC
     deploy_on_push: true
     repo: caldrianx/digitalocean-sample-aspnet
   name: digitalocean-sample-aspnet
-  # protocol: HTTP2
   envs:
     - key: ASPNETCORE_HTTP_PORTS
       value: "5000"
       scope: RUN_TIME
       type: general
+  # protocol: HTTP2

@@ -12,7 +12,7 @@ static_resources:
           codec_type: AUTO
           stat_prefix: ingress_http
           use_remote_address: true
-          xff_num_trusted_hops: 1
+          xff_num_trusted_hops: 2
           access_log:
           - name: envoy.access_loggers.stdout
             typed_config:

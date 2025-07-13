@@ -24,7 +24,7 @@ fi
 
 # Test the actual gRPC service
 echo "3. Testing Greeter service..."
-grpcurl -plaintext -d '{"name": "World"}' localhost:8080 greet.Greeter/SayHello
+grpcurl -plaintext -d '{"name": "World"}' -proto MugMiles/Protos/greet.proto localhost:8080 greet.Greeter/SayHello
 if [ $? -eq 0 ]; then
     echo "✓ Greeter service is working"
 else

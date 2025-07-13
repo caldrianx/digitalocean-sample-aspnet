@@ -1,17 +1,6 @@
 ﻿services:
   mugmiles:
+    #image: mugmiles
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_HTTP_PORTS=5000
-      - ASPNETCORE_URLS=http://+:5000
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s

@@ -1,33 +1,14 @@
-name: mugmiles-grpc
+name: digitalocean-sample-aspnet
 services:
-- name: mugmiles
-  build_command: docker build -t mugmiles .
-  dockerfile_path: Dockerfile
-  source_dir: /
+- dockerfile_path: Dockerfile
   github:
-    repo: your-username/your-repo-name
-    branch: main
+    branch: gRPC
     deploy_on_push: true
-  instance_count: 1
-  instance_size_slug: basic-xxs
-  http_port: 8080
-  health_check:
-    http_path: /health
-    initial_delay_seconds: 30
-    period_seconds: 30
-    timeout_seconds: 10
-    failure_threshold: 3
-    success_threshold: 1
-  routes:
-  - path: /
+    repo: caldrianx/digitalocean-sample-aspnet
+  name: digitalocean-sample-aspnet
   envs:
-  - key: ASPNETCORE_ENVIRONMENT
-    value: Production
-  - key: ASPNETCORE_HTTP_PORTS
-    value: "5000"
-  - key: ASPNETCORE_URLS
-    value: "http://+:5000"
-  - key: DOTNET_RUNNING_IN_CONTAINER
-    value: "true"
-  - key: DOTNET_USE_POLLING_FILE_WATCHER
-    value: "true" 
+    - key: ASPNETCORE_HTTP_PORTS
+      value: "5000"
+      scope: RUN_TIME
+      type: general
+  protocol: HTTP2

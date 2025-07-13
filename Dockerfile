@@ -1,5 +1,15 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 
+# Install Envoy proxy in the runtime image
+RUN apt-get update && \
+    apt-get install -y wget gnupg2 lsb-release && \
+    wget -O- https://apt.envoyproxy.io/signing.key | gpg --dearmor -o /etc/apt/keyrings/envoy-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/envoy-keyring.gpg] https://apt.envoyproxy.io bookworm main" | tee /etc/apt/sources.list.d/envoy.list && \
+    apt-get update && \
+    apt-get install envoy && \
+    apt-get purge -y --auto-remove curl gnupg2 lsb-release && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Copy envoy.yaml and entrypoint.sh into the runtime image
 COPY envoy.yaml /etc/envoy/envoy.yaml
 COPY --link entrypoint.sh /app/entrypoint.sh

@@ -15,7 +15,7 @@ public static class Program
         // Configure Kestrel for better cloud deployment
         builder.WebHost.ConfigureKestrel(options =>
         {
-            options.ListenAnyIP(5000, listenOptions =>
+            options.ListenAnyIP(8080, listenOptions =>
             {
                 listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
             });

@@ -24,13 +24,13 @@ public static class Program
         builder.Services.AddGrpcHealthChecks();
 
         // Configure Kestrel for better cloud deployment
-        builder.WebHost.ConfigureKestrel(options =>
-        {
-            options.ListenAnyIP(8080, listenOptions =>
-            {
-                listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
-            });
-        });
+        // builder.WebHost.ConfigureKestrel(options =>
+        // {
+        //     options.ListenAnyIP(8080, listenOptions =>
+        //     {
+        //         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+        //     });
+        // });
 
         var app = builder.Build();
 

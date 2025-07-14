@@ -14,10 +14,10 @@ public static class Program
 
         builder.Services.AddHttpLogging(logging =>
         {
-            logging.LoggingFields = HttpLoggingFields.All;
+            // logging.LoggingFields = HttpLoggingFields.All;
             logging.CombineLogs = true;
         });
-        builder.Services.AddHttpLoggingInterceptor<SampleHttpLoggingInterceptor>();
+        // builder.Services.AddHttpLoggingInterceptor<SampleHttpLoggingInterceptor>();
 
         // Add services to the container.
         builder.Services.AddGrpc();

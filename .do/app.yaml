@@ -1,0 +1,9 @@
+name: digitalocean-sample-aspnet
+services:
+- dockerfile_path: Dockerfile
+  github:
+    branch: echo
+    deploy_on_push: true
+    repo: caldrianx/digitalocean-sample-aspnet
+  name: digitalocean-sample-aspnet
+  # protocol: HTTP2
